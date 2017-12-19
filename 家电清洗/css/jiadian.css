@@ -115,6 +115,15 @@ button{
 	background-size: cover;
 	cursor: pointer;
 }
+.jiadian_infor_con p.mt{
+	margin-top: 5px;
+}
+.jiadian_infor_con p{
+	line-height: 24px;
+}
+.jiadian_infor_con .tel{
+	margin-left: 50px;
+}
 .error{
 	width: 100px;
 	color: #cc3300;

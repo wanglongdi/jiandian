@@ -167,6 +167,7 @@ a?"1":"0"),e)}}};p.utils=d;"undefined"!=typeof module&&module.exports?module.exp
 					else{
 						_this.showPanel();
 					}
+					$('#input_time').siblings('.error').hide();
 				});
 
 				//初始化点击li

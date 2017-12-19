@@ -3,9 +3,11 @@ $(function(){
 	//服务地址
 	$('#input_adress').focus(function(){
 		window.location.href="http://www.baidu.com";
+		$('#input_adress').siblings('.error').hide();
 	})
 	$('#selAdress').click(function(){
 		window.location.href="http://www.baidu.com";
+		$('#input_adress').siblings('.error').hide();
 	})
 	//清单个数总和
 	function totalNum(){
@@ -71,6 +73,7 @@ $(function(){
 				$(this).find('input').val(num);
 			}
 		})
+		$('.jiadian_sel').find('.error').hide();
 	})
 	//袋洗清单
 	function singleNum(oText,num){
@@ -153,25 +156,51 @@ $(function(){
 
 
 	//表单提交
-	$('#jdForm').submit(function(){
+	$('#subBtn').click(function(){
 		
 		var time_val=$('#input_time').val();
-		var adr_val=$('#input_adress').val();
+		var adrInput=$('#input_adress');
 		var money=$('#jiadian_total').find('b').html();
-		console.log(money);
+		var con=$('.jiadian_infor_con');		
+		var name=con.find('span.name').html();
+		var tel=con.find('span.tel').html();
+		var adr=con.find('.adr').html();
+		var textarea=$('textarea').val();
+		var order=$('#inputOrder').val();
+		var formParam={
+			time: time_val,
+			name: name,
+			tel: tel,
+			address: adr,
+			money: money,
+			textarea: textarea,
+			order: order
+
+		};
 		if(time_val == ''){
 			$('#input_time').siblings('.error').show();
 			return false;
 		}
-		 if(adr_val == ''){
+		else if(adrInput.attr('type') == 'hidden'){
 			$('#input_adress').siblings('.error').show();
 			return false;
 		}
-		if(money == '¥0.00'){
+		else if(money == '¥0.00'){
 			$('.jiadian_sel').find('.error').show();
 			return false;
-		}
+		}else{
+			$.ajax({
+                type: "post",
+                url: url,
+                data: formParam,
+                dataType: "json",
+                success: function(data) {
 
+                }
+
+			})
+		}
+		
 	})
 	$('#input_time,#selTime').mtimer();
 
