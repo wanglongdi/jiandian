@@ -182,7 +182,7 @@ a?"1":"0"),e)}}};p.utils=d;"undefined"!=typeof module&&module.exports?module.exp
 				$('.mt_ok', container).on('tap', function(){
 					var date = mpDate.find('.selected').data('date');
 					var time = mpDate.find('.selected').attr('data-tt');
-					$('#input_time').attr('val',time);
+					$('#input_time').attr('name',time);
 					//var time = mpTime.find('.selected').data('time');
 					input.val(date);
 					_this.hidePanel();

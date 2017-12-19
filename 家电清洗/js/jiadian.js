@@ -159,6 +159,7 @@ $(function(){
 	$('#subBtn').click(function(){
 		
 		var time_val=$('#input_time').val();
+		var time_val0=$('#input_time').attr('name');
 		var adrInput=$('#input_adress');
 		var money=$('#jiadian_total').find('b').html();
 		var con=$('.jiadian_infor_con');		
@@ -167,16 +168,19 @@ $(function(){
 		var adr=con.find('.adr').html();
 		var textarea=$('textarea').val();
 		var order=$('#inputOrder').val();
+		var adressId=$('#adressId').attr('data-data');
 		var formParam={
-			time: time_val,
+			time: time_val0,
 			name: name,
 			tel: tel,
 			address: adr,
 			money: money,
 			textarea: textarea,
-			order: order
+			order: order,
+			adressId: adressId
 
 		};
+		//console.log(formParam);
 		if(time_val == ''){
 			$('#input_time').siblings('.error').show();
 			return false;
