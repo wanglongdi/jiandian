@@ -1,14 +1,6 @@
 $(function(){
 	
-	//服务地址
-	$('#input_adress').focus(function(){
-		window.location.href="http://www.baidu.com";
-		$('#input_adress').siblings('.error').hide();
-	})
-	$('#selAdress').click(function(){
-		window.location.href="http://www.baidu.com";
-		$('#input_adress').siblings('.error').hide();
-	})
+
 	//清单个数总和
 	function totalNum(){
 		var sum=0;
@@ -35,20 +27,39 @@ $(function(){
 		$('.jiadian_sel ul li').each(function(){
 			var arrId=$(this).find('a').attr('tapy_id');
 			var num=$(this).find('b.round').text();
+
 			if(arr == ''){
 				if(num !== '0'){
-					arr+='{tapyid:'+arrId+',num:'+num+'}';
+					//arr+='{tapyid:'+arrId+',num:'+num+'}';
+					arr+='{\"tapyid\":\"'+arrId+'\",\"num\":\"'+num+'\"}';
 				}
+
 			}else{
 				if(num !== '0'){
-					arr+=',{tapyid:'+arrId+',num:'+num+'}';
+					//arr+=',{tapyid:'+arrId+',num:'+num+'}';
+					arr+=',{\"tapyid\":\"'+arrId+'\",\"num\":\"'+num+'\"}';
 				}
 			}
 			
+		})
+		$('#inputOrder').val('['+arr+']');
+		//$('#inputOrder').attr('name','['+arr+']');
+	}
+	/*function inputId(){
+		var arr=[];
+		$('.jiadian_sel ul li').each(function(){
+			var arrId=$(this).find('a').attr('tapy_id');
+			var num=$(this).find('b.round').text();
+			var arr0=[];
+			if(num !== '0'){
+				arr0=[arrId,num];
+				arr.push(arr0);
+			}
 			
 		})
-		$('#inputOrder').val(arr);
-	}
+		//console.log(arr);
+		$('#inputOrder').attr('name',11);
+	}*/
 	//点击服务内容
 	$('.jiadian_sel ul li').click(function(){
 		var con=$(this).find('b.round');
@@ -73,7 +84,7 @@ $(function(){
 				$(this).find('input').val(num);
 			}
 		})
-		$('.jiadian_sel').find('.error').hide();
+		//$('.jiadian_sel').find('.error').hide();
 	})
 	//袋洗清单
 	function singleNum(oText,num){
@@ -153,46 +164,67 @@ $(function(){
 		$(this).hide();
 	})
 
-
+	function errorShow(obj){
+		$('#error').show().text(obj);
+		setTimeout("$('#error').hide()",2000);
+	}
 
 	//表单提交
 	$('#subBtn').click(function(){
 		
 		var time_val=$('#input_time').val();
 		var time_val0=$('#input_time').attr('name');
-		var adrInput=$('#input_adress');
 		var money=$('#jiadian_total').find('b').html();
-		var con=$('.jiadian_infor_con');		
-		var name=con.find('span.name').html();
-		var tel=con.find('span.tel').html();
-		var adr=con.find('.adr').html();
 		var textarea=$('textarea').val();
 		var order=$('#inputOrder').val();
 		var adressId=$('#adressId').attr('data-data');
+
+		var name_val=$('#input_name').val();		
+		var tel_val=$('#input_tel').val();
+		var city_val=$('#city-picker').val();
+		var adr_val=$('#input_adr').val();
+		var telReg = /^1\d{10}$/;
 		var formParam={
 			time: time_val0,
-			name: name,
-			tel: tel,
-			address: adr,
+			name: name_val,
+			tel: tel_val,
+			city: city_val,
+			address: adr_val,
 			money: money,
 			textarea: textarea,
 			order: order,
 			adressId: adressId
 
 		};
-		//console.log(formParam);
+
 		if(time_val == ''){
-			$('#input_time').siblings('.error').show();
+			errorShow('请选择服务时间');
 			return false;
 		}
-		else if(adrInput.attr('type') == 'hidden'){
-			$('#input_adress').siblings('.error').show();
+		else if(name_val == ''){
+			errorShow('请输入联系人');
+			return false;
+		}
+		else if(tel_val == ''){
+			errorShow('请输入电话号码');
+			return false;
+		}else if(!telReg.test(tel_val)){
+			errorShow('请输入正确电话号码');
+			return false;
+		}
+		else if(city_val == ''){
+			errorShow('请选择所在区域');
+			return false;
+		}
+		else if(adr_val == ''){
+			errorShow('请输入详细地址');
 			return false;
 		}
 		else if(money == '¥0.00'){
-			$('.jiadian_sel').find('.error').show();
+			errorShow('请选择服务内容');
 			return false;
 		}else{
+			console.log(1);
 			$.ajax({
                 type: "post",
                 url: url,

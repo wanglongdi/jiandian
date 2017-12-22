@@ -10,6 +10,7 @@
 	<title>E袋洗-家电清洗</title>
 	<link rel="stylesheet" type="text/css" href="css/jiadian.css" />
 	<link rel="stylesheet" type="text/css" href="js/zepto.mtimer.css" />
+	<link rel="stylesheet" type="text/css" href="css/jquery-weui.min.css">
 </head>
 <body>
 <!-- jiadian_tit -->
@@ -22,33 +23,51 @@
 <!-- jiadian_infor -->
 <div class="jiadian_infor">
 	<!-- jiadian_infor_con -->
-	<div class="jiadian_infor_con">
-		<h2>服务时间</h2>
-		<div class="error">请选择服务时间</div>
-		<input type="text" placeholder="请选择服务时间" id="input_time" readonly />
-		<b id="selTime"></b>
+	<div class="jiadian_infor_con jiadian_flex">
+		<div class="tit">服务时间</div>
+		<div class="con">
+			<input type="text" placeholder="请选择服务时间" id="input_time" readonly />
+		</div>
+		<b id="selTime" class="time"></b>
 	</div>
 	<!-- jiadian_infor_con -->
 	<div class="jiadian_infor_con">
-		<h2>服务地址</h2>
-		<div class="error">请选择服务地址</div>
-		<b id="selAdress"></b>
-		<input type="text" placeholder="请选择服务地址" id="input_adress" readonly />
-		<div id="adressId" data-data="eee">
-			<p class="mt">
-				<span class="name">{$address['username']}</span><span class="tel">{$address['tel']}</span>
-			</p >
-	      	<p class="adr">{$address['address']}</p>
+		<div id="adressId" data-data="111">
+			<div class="con0">
+				<div class="tit">联系人</div>
+				<div class="con">
+					<input type="text" placeholder="姓名" id="input_name" />
+				</div>
+			</div>
+			<div class="con0">
+				<div class="tit">电话</div>
+				<div class="con">
+					<input type="text" placeholder="联系方式" id="input_tel" />
+				</div>
+			</div>
+		</div>
+		<div class="con0">
+			<div class="tit">详细地址</div>
+			<div class="con">
+				
+				<div class="ader_con">
+					<input type="text" placeholder="请选择所在区域" id="city-picker" readonly />
+				</div>
+				<div class="ader_con bt">
+					<input type="text" placeholder="详细地址（如门牌号等）" id="input_adr" />
+				</div>
+			</div>
 		</div>
 		
 	</div>
+	
 </div>
+<div id="error"></div>
 <!-- jiadian_infor end -->
 
 <!-- jiadian_sel -->
 <div class="jiadian_sel">
 	<h2>服务内容</h2>
-	<div class="error">请选择服务内容</div>
 	<ul>
 		<li>
 			<a href="javascript:;" tapy_id='a'>
@@ -110,13 +129,32 @@
 	<button type="button" id="subBtn">确认</button>
 </div>
 <!-- jiadian_sub end -->
-<input id="inputOrder" type="hidden" />
+<input id="inputOrder" type="hidden" name="[]" />
 <input id="inputMoney" type="hidden" />
 
 
 <script type="text/javascript" src="js/zepto.js"></script>
 <script type="text/javascript" src="js/zepto.mtimer.js"></script>
+<script type="text/javascript" src="js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="js/city-picker.min.js"></script>
 <script type="text/javascript" src="js/jiadian.js"></script>
+<script>
+// 选择城市
+        $("#city-picker").cityPicker({
+            title: "请选择收件地址",
+            onChange: function(picker, values, displayValues) {
+                var temp = $("#city-picker").val();
+                var arr = temp.split(" ");
+                var province = arr[0];
+                var city = arr[1];
+                var area = arr[2] ? arr[2] : "";
+                console.log(picker, values, displayValues)
+                //invoiceInfo.province = province;
+                //invoiceInfo.city = city;
+                //invoiceInfo.area = area;
+            }
+        })
 
+</script>
 </body>
 </html>

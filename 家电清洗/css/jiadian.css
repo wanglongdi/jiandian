@@ -92,44 +92,85 @@ button{
 }
 .jiadian_infor_con{
 	border-top: #eee 1px solid;
-	padding: 15px 15px 10px;
+	padding: 0 15px;
+	line-height: 50px;
 	position: relative;
+}
+.jiadian_flex{
+	display: flex;
+	flex-direction: row;
+}
+.jiadian_infor_con .tit{
+	width: 25%;
+	font-size: 14px;
+	color: #666;
+}
+.jiadian_infor_con .con{
+	width: 75%;
+
+}
+.jiadian_infor_con .con0{
+	border-top: #eee 1px solid;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	position: relative;
+	overflow: hidden;
+}
+.jiadian_infor_con .con0:first-child{
+	border-top: 0;
 }
 .jiadian_infor_con input{
 	border: 0;
-	font-size: 17px;
+	font-size: 15px;
 	margin-top: 5px;
-	height: 30px;
-	line-height: 30px;
+	height: 50px;
+	line-height: 50px;
 	color: #333;
+	width: 100%;
+	margin-top: -1px;
 }
-
-.jiadian_infor_con b{
+.jiadian_infor_con b.adr{
+	width: 22px;
+	height: 22px;
+	position: absolute;
+	top: 15px;
+	right: 0;
+	display: block;
+	background: url('../images/adr.png') no-repeat;
+	background-size: cover;
+	cursor: pointer;
+}
+.jiadian_infor_con b.time{
 	width: 18px;
 	height: 18px;
 	position: absolute;
-	top: 32px;
+	top: 18px;
 	right: 15px;
 	display: block;
 	background: url('../images/click_icon.png') no-repeat;
 	background-size: cover;
 	cursor: pointer;
 }
-.jiadian_infor_con p.mt{
-	margin-top: 5px;
+.jiadian_infor_con .ader_con{
+	width: 100%;
 }
-.jiadian_infor_con p{
-	line-height: 24px;
+.jiadian_infor_con .bt{
+	border-top: #eee 1px solid;
 }
-.jiadian_infor_con .tel{
-	margin-left: 50px;
-}
-.error{
-	width: 100px;
-	color: #cc3300;
-	position: absolute;
-	left: 85px;
-	top: 14px;
+#error{
+	width: 180px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	color: #fff;
+	background: #666;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	margin-left: -90px;
+	margin-top: -25px;
+	z-index: 999;
 	display: none;
 }
 /* jiadian_sel */
