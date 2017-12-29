@@ -1,0 +1,142 @@
+<!DOCTYPE html>  
+<html>  
+    <head>  
+        <meta charset="UTF-8">  
+        <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no"/>  
+        <title></title>  
+  
+<span style="white-space:pre">      </span><link rel="stylesheet" type="text/css" href="./selectAddress/weui.min.css"/>  
+        <link rel="stylesheet" type="text/css" href="./selectAddress/addAddress.css"/>  
+    </head>  
+    <style type="text/css">  
+    #submit{  
+        background-color: #0b72b4;  
+        border: 0;  
+        color: #ff0;  
+        font-size: 1.15em;  
+    }  
+      
+.subcontainer{  
+<span style="white-space:pre">  </span>display: inline-block;  
+    width: 25%;  
+    text-align: left;  
+}     
+.container p{  
+    display: inline-block;  
+    width: 65%;  
+    color: #333;  
+}  
+.container p.text-right{  
+    text-align: right;  
+    color: #666;  
+}  
+.container label{  
+    padding: 12% 10%;  
+    display: inline-block;  
+    color: rgb(102,102,102);  
+}  
+.container{  
+    border-bottom: 1px solid #b2b2b2;  
+}  
+    </style>  
+    <body>  
+            <div class="container cancelbottom" id="showArea">  
+                <div class="subcontainer"><label>所在地区</label></div><p class="text-right" id="area">请选择</p>  
+            </div>  
+            <!--  
+            <div class="container" id="showStreet">  
+                <div class="subcontainer"><label>街道</label></div><p class="text-right" id="street">请选择</p>  
+                <div class="goLink"><img src="__IMAGES__/mine/goLink.png"></div>  
+                <input type="hidden" name="street" id="street-data" value="">  
+            </div>  
+            -->  
+    </body>  
+    <script type="text/javascript" src="./selectAddress/jquery-1.11.0.js" ></script>  
+    <script type="text/javascript" src="./selectAddress/weui-1.1.1.min.js" ></script>  
+    <script>  
+        $('.delBtn').click(function(){  
+            if($(this).find('img').attr('src')=='./selectAddress/noCheckItem.png'){    
+                $(this).find('img').attr('src','./selectAddress/checkedItem.png');    
+                $("#default").val(1);  
+            }else{  
+                $(this).find('img').attr('src','./selectAddress/noCheckItem.png');    
+                $("#default").val(0);  
+            }  
+        });  
+  
+        $("#headerRBtn").click(function(){  
+            $(".form").submit();  
+        })  
+        $('#showArea').on('click', function () {  
+            //php后台获取级联数组  
+            $.get("getArea",function(data,status){  
+                //php处理过后的json形式数据(json_encode)  
+                var jsonobj=eval("("+data+")");  
+                 
+                //jsonobj的格式：（可以是3维数组，不熟悉格式的可以用控制台打印输出调试console.log(data);）  
+                [{  
+                    label: '广东',  
+                    value: 0,  
+                    children: [{  
+                        label: '广州',  
+                        value: 0,  
+                        children: [{  
+                            label: '海珠',  
+                            value: 0  
+                        }, {  
+                            label: '番禺',  
+                            value: 1  
+                        }]  
+                    }, {  
+                        label: '佛山',  
+                        value: 1,  
+                        children: [{  
+                            label: '禅城',  
+                            value: 0  
+                        }, {  
+                            label: '南海',  
+                            value: 1  
+                        }]  
+                    }]  
+                }, {  
+                    label: '广西',  
+                    value: 1,  
+                    children: [{  
+                        label: '南宁',  
+                        value: 0,  
+                        children: [{  
+                            label: '青秀',  
+                            value: 0  
+                        }, {  
+                            label: '兴宁',  
+                            value: 1  
+                        }]  
+                    }, {  
+                        label: '桂林',  
+                        value: 1,  
+                        children: [{  
+                            label: '象山',  
+                            value: 0  
+                        }, {  
+                            label: '秀峰',  
+                            value: 1  
+                        }]  
+                    }]  
+                }]  
+                
+                weui.picker(jsonobj, {  
+                onChange: function (result) {  
+                    //console.log(result);  
+                },  
+                onConfirm: function (result) {  
+                    $("#area").html(result[0]['name']+" "+result[1]['name']+" "+result[2]['name']);  
+                    $("#province").val(result[0]['value']);  
+                    $("#city").val(result[1]['value']);  
+                    $("#district").val(result[2]['value']);  
+                }  
+                });  
+             });  
+      
+        });  
+    </script>  
+</html>

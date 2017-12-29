@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" >
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="format-detection" content="email=no">
+	<title>E袋洗-家电清洗</title>
+	<link rel="stylesheet" type="text/css" href="css/jiadian.css" />
+	<link rel="stylesheet" type="text/css" href="css/jquery-weui.min.css">
+</head>
+<body>
+<!-- jiadian_tit -->
+<div class="jiadian_tit">
+	<h1>家电清洗</h1>
+	<a href="#" class="myOrder">我的订单</a>
+</div>
+<!-- jiadian_tit end -->
+
+
+
+<!-- jiadian_sel -->
+<div class="jiadian_sel">
+	<h2>清洗内容</h2>
+	<ul>
+		<li>
+			<a href="javascript:;" tapy_id='a'>
+				<img src="images/jiadian_01.png" />
+				<span class="text">空调</span>
+				<span class="price"><b>¥</b><i>15.10</i></span>
+			</a>
+			<b class="round">0</b>
+		</li>
+		<li>
+			<a href="javascript:;" tapy_id='b'>
+				<img src="images/jiadian_02.png" />
+				<span class="text">洗衣机</span>
+				<span class="price"><b>¥</b><i>25.33</i></span>
+			</a>
+			<b class="round">0</b>
+		</li>
+		<li>
+			<a href="javascript:;" tapy_id='c'>
+				<img src="images/jiadian_03.png" />
+				<span class="text">油烟机(赠燃气灶)</span>
+				<span class="price"><b>¥</b><i>20.00</i></span>
+			</a>
+			<b class="round">0</b>
+		</li>
+		<li>
+			<a href="javascript:;" tapy_id='d'>
+				<img src="images/jiadian_04.png" />
+				<span class="text">冰箱</span>
+				<span class="price"><b>¥</b><i>39.00</i></span>
+			</a>
+			<b class="round">0</b>
+		</li>
+	</ul>
+
+</div>
+<!-- jiadian_sel end -->
+
+<!-- jiadian_wait -->
+<div id="jiadian_wait" class="hide">
+	<h2>待清洗清单</h2>
+	<b id="jiadian_del"></b>
+	<ul></ul>
+</div>
+<!-- jiadian_wait end -->
+
+<!-- jiadian_infor -->
+<div class="jiadian_infor">
+	<!-- jiadian_infor_con -->
+	<div class="jiadian_infor_con jiadian_flex">
+		<div class="tit">服务时间</div>
+		<div class="con">
+			<input type="text" placeholder="请选择服务时间" id="input_time" readonly="readonly" />
+		</div>
+		<b id="selTime" class="time"></b>
+	</div>
+	<!-- jiadian_infor_con -->
+	<div class="jiadian_infor_con">
+		<div id="adressId" data-data="111">
+			<div class="con0">
+				<div class="tit">联系人</div>
+				<div class="con">
+					<input type="text" placeholder="姓名" id="input_name" />
+				</div>
+			</div>
+			<div class="con0">
+				<div class="tit">电话</div>
+				<div class="con">
+					<input type="tel" placeholder="联系方式" id="input_tel" />
+				</div>
+			</div>
+		</div>
+		<div class="con0">
+			<div class="tit">详细地址</div>
+			<div class="con">
+				<div class="ader_con flex_row">
+					<input type="text" class="city" placeholder="请选择城市" id="city-picker" readonly />
+					<div class="jiadian_infor_line">
+						<input type="text" class="area" placeholder="请选择区域" id="area-picker" readonly />
+					</div>
+					
+				</div>
+				<div class="ader_con bt">
+					<input type="text" placeholder="详细地址（如门牌号等）" id="input_adr" />
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+</div>
+<div id="error"></div>
+<!-- jiadian_infor end -->
+
+<!-- remark -->
+<div id="remark" class="hide">
+	<h2>备注</h2>
+	<textarea placeholder="请填写备注信息" ></textarea>
+</div>
+<!-- remark end -->
+
+<!-- jiadian_sub -->
+<div id="jiadian_sub">
+	<div id="jiadian_total">
+		总计：<b>¥0.00</b>
+	</div>
+	<button type="button" id="subBtn">确认</button>
+</div>
+<!-- jiadian_sub end -->
+<input id="inputOrder" type="hidden" name="" />
+<input id="inputMoney" type="hidden" />
+<input id="num" type="hidden" />
+<input id="city" type="hidden" />
+<script type="text/javascript" src="js/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="js/city-picker.min.js"></script>
+<script type="text/javascript" src="js/jiadian.js"></script>
+<script>
+// 选择城市
+		/*var tt=$('#city-picker').val();
+        $("#city-picker").cityPicker({
+            title: "请选择收件地址",
+            onChange: function(picker, values, displayValues) {
+            	//console.log(displayValues)
+                var temp = $("#city-picker").val();
+                var arr = temp.split(" ");
+                var province = arr[0];
+                var city = arr[1];
+                var area = arr[2] ? arr[2] : "";
+            }
+        })
+
+
+    getProvince('长沙市','芙蓉区');
+	function getProvince(city,area){
+		var cityArr=$.rawCitiesData;
+		
+		for(var i=0; i<cityArr.length; i++){
+			for(var n=0; n<cityArr[i].sub.length; n++){
+				if(cityArr[i].sub[n].name==city){
+					$("#city-picker").val(cityArr[i].name+' '+city+' '+area);
+					$("#city").val(cityArr[i].name+' '+city+' '+area);
+					for(var m=0; m<cityArr[i].sub[n].sub.length; m++){
+							if(cityArr[i].sub[n].sub[m].name==area){
+								code=cityArr[i].sub[n].sub[m].code;
+								codes=cityArr[i].code+' '+cityArr[i].sub[n].code+' '+code;
+								$("#city-picker").attr('data-code',code);
+								$("#city-picker").attr('data-codes',codes);
+								//console.log(codes);
+							}
+						}
+				}
+			}
+			
+		}
+		
+	}  
+	//var tt=$('#city-picker').val();
+杭州 西湖区
+杭州 下城区
+杭州 拱墅区
+杭州 江干区
+杭州 余杭区
+杭州 上城区
+杭州 余杭区（仅限文一西路未来科技城）
+杭州 江干区（除九堡街道外）
+杭州 拱墅区(除康桥镇外)
+	//console.log(tt);
+*/
+	var cityArr=['北京','上海','深圳','天津','南京','武汉','杭州'];
+	var areaArr=[['朝阳区','海淀区','东城区','西城区','丰台区','石景山区','昌平区','通州区','房山区','大兴区','顺义区','回龙观（昌平区）','天通苑（昌平区）','亦庄（大兴区）','良乡（房山区）','黄村（大兴区）'],['杨浦区','宝山区','闸北区','普陀区','虹口区','静安区','黄浦区','徐汇区','长宁区','浦东新区','闵行区','嘉定区'],['南山区','福田区','罗湖区','宝安区','龙岗区','布吉区','坂田区','横岗区','龙华区',''],['南开区','河西区','和平区','红桥区','河北区','河东区','东丽区','北辰区','环内（东丽区）','环内（北辰区）','津南区','西青区'],['秦淮区','鼓楼区','建邺区','栖霞区','江宁区','雨花台区','玄武区','浦口区','六合区','六合区（大厂片区）'],['洪山区','武昌区','青山区','江岸区','硚口区','江汉区','汉阳区'],['西湖区','下城区','拱墅区','江干区','余杭区','上城区','余杭区（仅限文一西路未来科技城）','江干区（除九堡街道外）','拱墅区(除康桥镇外)']];
+	var areaArr0;
+
+	$("#city-picker").picker({
+	  title: "请选择城市",
+	  cols: [
+	    {
+	      textAlign: 'center',
+	      values: cityArr
+	    }
+	  ],
+	  onChange: function(res){
+		for(var i=0;i<cityArr.length;i++){
+			if(res.displayValue[0]==cityArr[i]){
+				$('#num').val(i);
+				var area_id='#area-picker'+i;
+				var obj=$('.jiadian_infor_line');
+				obj.empty();
+				obj.html('<input type="text" class="area" placeholder="请选择区域" id="'+area_id+'" readonly />');	
+			}
+		}
+	  }
+	});
+
+
+$('.jiadian_infor_line').on('focus','input',function(){
+	var tt=$("#num").val();
+	var obj='#area-picker'+tt;
+	var obj=$(this).find('input');
+	console.log(areaArr[tt]);
+	//$('.area').picker('open');
+	$(this).picker({
+			title: "请选择区域",
+			 cols: [
+			    {
+			      textAlign: 'center',
+			      values: areaArr[tt]
+			    }
+			  ]
+		})	
+})
+</script>
+</body>
+</html>
